@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Order Receipt Printing</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <script>
+
+    </script>
+</head>
+<body style="background: white;">
+</body>
+<script>
+    electron = require('electron');
+    const pwin = new electron.remote.BrowserWindow({
+        webPreferences: {
+            contextIsolation: true,
+            nodeIntegration: false,
+        }
+    });
+    pwin.loadURL("data:text/html;charset=utf-8," + "encodeURI(txtContent)");
+    pwin.webContents.on("did-finish-load", function () {
+        pwin.webContents.print({
+            silent: true
+        }, function(success){
+            console.log("Printed..")
+            console.log(txtContent)
+        });
+    });
+</script>
+</html>
